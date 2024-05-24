@@ -1,5 +1,5 @@
 {
-  "name": "ValueTools",
+  "name": "com.animetra.valuetools",
   "version": "1.0.0",
   "displayName": "Animetra ValueTools",
   "description": "Tools and extensions to modify numeric values, especially useful for game development",
