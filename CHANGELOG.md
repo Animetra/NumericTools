@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.1.0
+25-5-2024
+- Added clamped values
+- minor fixes
 
 ### 1.0.1
 25-5-2024
