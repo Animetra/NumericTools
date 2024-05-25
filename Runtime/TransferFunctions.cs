@@ -22,5 +22,13 @@ public static class TransferFunctions
     /// <param name="exponent">the exponent</param>
     /// <returns>the transferred value</returns>
     public static float TransferCos(this float value)
-        => Mathf.Cos(value.AssureBetween01().MapFrom01(Mathf.PI, Mathf.PI * 2f)).MapTo01(-1, 1);
+        => Mathf.Cos(value.AssureBetween01().MapFrom01(Mathf.PI, Mathf.PI * 2f)).MapTo01(-1f, 1f);
+
+    /// <summary>
+    /// Inverts <paramref name="value"/>, meaning 1-x.
+    /// </summary>
+    /// <param name="value">The value to be inverted</param>
+    /// <returns>The inverted value</returns>
+    public static float TransferInvert(this float value)
+        => 1f - value.AssureBetween01();
 }
