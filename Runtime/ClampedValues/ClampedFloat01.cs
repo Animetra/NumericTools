@@ -5,7 +5,6 @@ using UnityEngine;
 
 [Serializable]
 public struct ClampedFloat01 :
-    ITransferable,
     IComparable
 {
     [SerializeField][Range(0, 1)] private float _value;
@@ -20,6 +19,40 @@ public struct ClampedFloat01 :
     {
         _value = initValue;
         _value = _value.Clamp01();
+    }
+
+    /// <summary>
+    /// Applies an exponential transfer function on <paramref name="value"/>.
+    /// </summary>
+    /// <param name="value">the input value between 0 and 1, inclusive</param>
+    /// <param name="exponent">the exponent</param>
+    /// <returns>the transferred value</returns>
+    public ClampedFloat01 TransferExponential(float exponent)
+    {
+        Value = Mathf.Pow(Value, exponent);
+        return this;
+    }
+
+    /// <summary>
+    /// Applies an cosine transfer function on <paramref name="value"/> (1 PI to 2 PI).
+    /// </summary>
+    /// <param name="value">the input value between 0 and 1, inclusive</param>
+    /// <returns>the transferred value</returns>
+    public ClampedFloat01 TransferCos()
+    {
+        Value = Mathf.Cos(Value.MapFrom01(Mathf.PI, Mathf.PI * 2f)).MapTo01(-1f, 1f);
+        return this;
+    }
+
+    /// <summary>
+    /// Inverts <paramref name="value"/>, meaning 1-x.
+    /// </summary>
+    /// <param name="value">The value to be inverted</param>
+    /// <returns>The inverted value</returns>
+    public ClampedFloat01 TransferInvert()
+    {
+        Value = 1f - Value;
+        return this;
     }
 
     public int CompareTo(object obj)

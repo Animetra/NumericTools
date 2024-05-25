@@ -1,5 +1,9 @@
 # CHANGELOG
 
+### 1.1.1
+25-5-2024
+- Redesigned TransferFunctions functionality
+
 ## 1.1.0
 25-5-2024
 - Added clamped values
