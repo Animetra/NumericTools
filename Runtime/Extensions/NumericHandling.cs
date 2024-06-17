@@ -258,7 +258,7 @@ public static class NumericHandling
 
         float divisionSize = 360f / divisions;
         float angle = Vector2.SignedAngle(Vector2.up, source) - offSet;
-        return Mathf.FloorToInt(angle / divisions);
+        return Mathf.FloorToInt(angle / divisionSize);
     }
 
     // TODO
