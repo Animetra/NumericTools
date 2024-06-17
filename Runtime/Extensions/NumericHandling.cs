@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
+using Unity.Plastic.Antlr3.Runtime;
 using UnityEngine;
 
 /// <summary>
@@ -243,7 +244,7 @@ public static class NumericHandling
     }
 
     /// <summary>
-    /// Divides the angular space around the origin into <paramref name="divisions"/> divisions and returns the index of the section the <paramref name="source"/> is pointing, counting clockwise startig with 0. Works like a clock.
+    /// Divides the angular space around the origin into <paramref name="divisions"/> divisions and returns the index of the section the <paramref name="source"/> is pointing, counting counterclockwise startig with 0. Works like a clock.
     /// </summary>
     /// <param name="source">The Vector2 whose quadrant to get</param>
     /// <param name="divisions">Number of divisions the space will be divided by</param>
@@ -257,7 +258,8 @@ public static class NumericHandling
         }
 
         float divisionSize = 360f / divisions;
-        float angle = Vector2.SignedAngle(Vector2.up, source) - offSet;
+        float angle = Vector2.SignedAngle(Vector2.up, source).ReflexAngle() - offSet;
+
         return Mathf.FloorToInt(angle / divisionSize);
     }
 
@@ -271,6 +273,16 @@ public static class NumericHandling
     public static Vector3 GetDirection(this Vector3 source)
     {
         throw new NotImplementedException();
+    }
+
+    /// <summary>
+    /// Reflects an angle from -180 to 180° to 0 to 360°
+    /// </summary>
+    /// <param name="angle">The angle between -180 and 180°</param>
+    /// <returns>The reflected angle</returns>
+    public static float ReflexAngle(this float angle)
+    {
+        return angle < 0 ? angle + 360 : angle;
     }
 
     // Other
