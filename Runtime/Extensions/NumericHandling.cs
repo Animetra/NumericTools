@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 /// <summary>
@@ -239,6 +240,37 @@ public static class NumericHandling
         float targetMagnitude = currentMagnitude.Clamp(min, max);
 
         return currentMagnitude != targetMagnitude ? value * (targetMagnitude / currentMagnitude) : value;
+    }
+
+    /// <summary>
+    /// Divides the angular space around the origin into <paramref name="divisions"/> divisions and returns the index of the section the <paramref name="source"/> is pointing, counting clockwise startig with 0. Works like a clock.
+    /// </summary>
+    /// <param name="source">The Vector2 whose quadrant to get</param>
+    /// <param name="divisions">Number of divisions the space will be divided by</param>
+    /// <param name="offSet">Shift the input angle by this amount of degrees.</param>
+    /// <returns>The index of the searched division, starting at 0</returns>
+    public static int GetQuadrant(this Vector2 source, int divisions = 4, float offSet = 0)
+    {
+        if ( divisions < 1)
+        {
+            throw new ArgumentException($"argument {nameof(divisions)} must be greater than 0");
+        }
+
+        float divisionSize = 360f / divisions;
+        float angle = Vector2.SignedAngle(Vector2.up, source) - offSet;
+        return Mathf.FloorToInt(angle / divisions);
+    }
+
+    // TODO
+    public static Vector3 GetQuadrant(this Vector3 source)
+    {
+        throw new NotImplementedException();
+    }
+
+    // TODO
+    public static Vector3 GetDirection(this Vector3 source)
+    {
+        throw new NotImplementedException();
     }
 
     // Other

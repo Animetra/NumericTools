@@ -1,5 +1,9 @@
 # CHANGELOG
 
+### 1.1.2
+17-6-2024
+- Added GetQuadrant Method for Vector2
+
 ### 1.1.1
 25-5-2024
 - Redesigned TransferFunctions functionality
@@ -16,4 +20,3 @@
 ## 1.0.0
 25-05-2024
 - Initial version
-
