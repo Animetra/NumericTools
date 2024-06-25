@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Runtime.CompilerServices;
-using Unity.Plastic.Antlr3.Runtime;
 using UnityEngine;
 
 /// <summary>
@@ -252,7 +250,7 @@ public static class NumericHandling
     /// <returns>The index of the searched division, starting at 0</returns>
     public static int GetQuadrant(this Vector2 source, int divisions = 4, float offSet = 0)
     {
-        if ( divisions < 1)
+        if (divisions < 1)
         {
             throw new ArgumentException($"argument {nameof(divisions)} must be greater than 0");
         }
@@ -294,4 +292,26 @@ public static class NumericHandling
     /// <returns>true if even</returns>
     public static bool IsEven(this int value)
         => value % 2 == 0;
+
+    /// <summary>
+    /// Snaps <paramref name="value"/> to the nearest integral multiple of <paramref name="snapSize"/>
+    /// </summary>
+    /// <param name="value">The value to snap</param>
+    /// <param name="snapSize">the step size of the snapping grid</param>
+    /// <returns>the snapped value</returns>
+    public static int Snap(this int value, int snapSize)
+    {
+        return Mathf.RoundToInt(value / snapSize) * snapSize;
+    }
+
+    /// <summary>
+    /// Snaps <paramref name="value"/> to the nearest integral multiple of <paramref name="snapSize"/>
+    /// </summary>
+    /// <param name="value">The value to snap</param>
+    /// <param name="snapSize">the step size of the snapping grid</param>
+    /// <returns>the snapped value</returns>
+    public static float Snap(this float value, float snapSize)
+    {
+        return Mathf.Round(value / snapSize) * snapSize;
+    }
 }

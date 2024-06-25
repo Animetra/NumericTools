@@ -1,6 +1,6 @@
 {
   "name": "com.animetra.numerictools",
-  "version": "1.1.2",
+  "version": "1.1.3",
   "displayName": "Animetra Numeric Tools",
   "description": "Tools and extensions to handle and modify numeric values and vectors, especially useful for game development",
   "author": {
