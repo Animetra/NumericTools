@@ -2,11 +2,11 @@
 using UnityEngine;
 
 /// <summary>
-/// Provides several extension methods for int, float, Vector2 and Vector3 to simplify handling their values.
+/// Provides several extension methods for int, float, Vector2 and Vector3 to simplify evaluating and modifying their values.
 /// </summary>
 public static class NumericHandling
 {
-    // Mapping
+    #region Mapping
 
     /// <summary>
     /// Linear and not clamped mapping of a value space defined by <paramref name="inA"/> and <paramref name="inB"/> to a value space defined by <paramref name="outA"/> and <paramref name="outB"/>. 
@@ -124,7 +124,9 @@ public static class NumericHandling
     public static Vector3 MapTo01(this Vector3 value, Vector3 inA, Vector3 inB)
         => new Vector3(value.x.MapTo01(inA.x, inB.x), value.y.MapTo01(inA.y, inB.y), value.z.MapTo01(inA.z, inB.z));
 
-    // Clamping
+    #endregion
+
+    #region Clamping
 
     /// <summary>
     /// Clamps the input value <paramref name="value"/> between the borders <paramref name="min"/> and <paramref name="max"/>, including the borders.
@@ -241,6 +243,108 @@ public static class NumericHandling
         return currentMagnitude != targetMagnitude ? value * (targetMagnitude / currentMagnitude) : value;
     }
 
+    #endregion
+
+    #region Snapping
+
+    /// <summary>
+    /// Snaps <paramref name="value"/> to the nearest integral multiple of <paramref name="snapSize"/>
+    /// </summary>
+    /// <param name="value">The value to snap</param>
+    /// <param name="snapSize">the step size of the snapping grid</param>
+    /// <returns>the snapped value</returns>
+    public static int Snap(this int value, int snapSize)
+    {
+        return Mathf.RoundToInt(value / snapSize) * snapSize;
+    }
+
+    /// <summary>
+    /// Snaps <paramref name="value"/> to the nearest integral multiple of <paramref name="snapSize"/>
+    /// </summary>
+    /// <param name="value">The value to snap</param>
+    /// <param name="snapSize">the step size of the snapping grid</param>
+    /// <returns>the snapped value</returns>
+    public static float Snap(this float value, float snapSize)
+    {
+        return Mathf.Round(value / snapSize) * snapSize;
+    }
+
+    /// <summary>
+    /// Snaps <paramref name="value"/> componentwise to the nearest integral multiple of <paramref name="snapSize"/>
+    /// </summary>
+    /// <param name="value">The value to snap</param>
+    /// <param name="snapSize">the step size of the snapping grid</param>
+    /// <returns>the snapped value</returns>
+    public static Vector2 Snap(this Vector2 value, Vector2 snapSize)
+    {
+        return new Vector2(value.x.Snap(snapSize.x), value.y.Snap(snapSize.y));
+    }
+
+    /// <summary>
+    /// Snaps <paramref name="value"/> to the nearest integral multiple of <paramref name="snapSize"/>
+    /// </summary>
+    /// <param name="value">The value to snap</param>
+    /// <param name="snapSize">the step size of the snapping grid</param>
+    /// <returns>the snapped value</returns>
+    public static Vector2 Snap(this Vector2 value, float snapSize)
+    {
+        return new Vector2(value.x.Snap(snapSize), value.y.Snap(snapSize));
+    }
+
+    /// <summary>
+    /// Snaps <paramref name="value"/> componentwise to the nearest integral multiple of <paramref name="snapSize"/>
+    /// </summary>
+    /// <param name="value">The value to snap</param>
+    /// <param name="snapSize">the step size of the snapping grid</param>
+    /// <returns>the snapped value</returns>
+    public static Vector3 Snap(this Vector3 value, Vector3 snapSize)
+    {
+        return new Vector3(value.x.Snap(snapSize.x), value.y.Snap(snapSize.y), value.z.Snap(snapSize.z));
+    }
+
+    /// <summary>
+    /// Snaps <paramref name="value"/> to the nearest integral multiple of <paramref name="snapSize"/>
+    /// </summary>
+    /// <param name="value">The value to snap</param>
+    /// <param name="snapSize">the step size of the snapping grid</param>
+    /// <returns>the snapped value</returns>
+    public static Vector3 Snap(this Vector3 value, float snapSize)
+    {
+        return new Vector3(value.x.Snap(snapSize), value.y.Snap(snapSize), value.z.Snap(snapSize));
+    }
+
+    #endregion
+
+    #region Other
+
+    /// <summary>
+    /// Determines whether <paramref name="value"/> is even
+    /// </summary>
+    /// <param name="value">The value which might be even</param>
+    /// <returns>true if even</returns>
+    public static bool IsEven(this int value)
+        => value % 2 == 0;
+
+    /// <summary>
+    /// Removes negative signs from all components of <paramref name="value"/>
+    /// </summary>
+    /// <param name="value">The value to get the absolute from</param>
+    /// <returns><paramref name="value"/> without negative signs</returns>
+    public static Vector2 Abs(this Vector2 value)
+    {
+        return new Vector2(Mathf.Abs(value.x), Mathf.Abs(value.y));
+    }
+
+    /// <summary>
+    /// Removes negative signs from all components of <paramref name="value"/>
+    /// </summary>
+    /// <param name="value">The value to get the absolute from</param>
+    /// <returns><paramref name="value"/> without negative signs</returns>
+    public static Vector3 Abs(this Vector3 value)
+    {
+        return new Vector3(Mathf.Abs(value.x), Mathf.Abs(value.y), Mathf.Abs(value.z));
+    }
+
     /// <summary>
     /// Divides the angular space around the origin into <paramref name="divisions"/> divisions and returns the index of the section the <paramref name="source"/> is pointing, counting counterclockwise startig with 0. Works like a clock.
     /// </summary>
@@ -283,57 +387,5 @@ public static class NumericHandling
         return angle < 0 ? angle + 360 : angle;
     }
 
-    // Other
-
-    /// <summary>
-    /// Determines whether a value is even
-    /// </summary>
-    /// <param name="value">The value which might be even</param>
-    /// <returns>true if even</returns>
-    public static bool IsEven(this int value)
-        => value % 2 == 0;
-
-    /// <summary>
-    /// Snaps <paramref name="value"/> to the nearest integral multiple of <paramref name="snapSize"/>
-    /// </summary>
-    /// <param name="value">The value to snap</param>
-    /// <param name="snapSize">the step size of the snapping grid</param>
-    /// <returns>the snapped value</returns>
-    public static int Snap(this int value, int snapSize)
-    {
-        return Mathf.RoundToInt(value / snapSize) * snapSize;
-    }
-
-    /// <summary>
-    /// Snaps <paramref name="value"/> to the nearest integral multiple of <paramref name="snapSize"/>
-    /// </summary>
-    /// <param name="value">The value to snap</param>
-    /// <param name="snapSize">the step size of the snapping grid</param>
-    /// <returns>the snapped value</returns>
-    public static float Snap(this float value, float snapSize)
-    {
-        return Mathf.Round(value / snapSize) * snapSize;
-    }
-
-    /// <summary>
-    /// Snaps <paramref name="value"/> componentwise to the nearest integral multiple of <paramref name="snapSize"/>
-    /// </summary>
-    /// <param name="value">The value to snap</param>
-    /// <param name="snapSize">the step size of the snapping grid</param>
-    /// <returns>the snapped value</returns>
-    public static Vector2 Snap(this Vector2 value, Vector2 snapSize)
-    {
-        return new Vector2(value.x.Snap(snapSize.x), value.y.Snap(snapSize.y));
-    }
-
-    /// <summary>
-    /// Snaps <paramref name="value"/> componentwise to the nearest integral multiple of <paramref name="snapSize"/>
-    /// </summary>
-    /// <param name="value">The value to snap</param>
-    /// <param name="snapSize">the step size of the snapping grid</param>
-    /// <returns>the snapped value</returns>
-    public static Vector3 Snap(this Vector3 value, Vector3 snapSize)
-    {
-        return new Vector3(value.x.Snap(snapSize.x), value.y.Snap(snapSize.y), value.z.Snap(snapSize.z));
-    }
+    #endregion
 }
