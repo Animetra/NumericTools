@@ -3,6 +3,7 @@
 ### 1.1.3
 25-5-2024
 - Added Snap Method for int and float
+- Added Snap Method for Vector2 and Vector3
 
 ### 1.1.2
 17-6-2024

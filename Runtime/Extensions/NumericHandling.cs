@@ -314,4 +314,26 @@ public static class NumericHandling
     {
         return Mathf.Round(value / snapSize) * snapSize;
     }
+
+    /// <summary>
+    /// Snaps <paramref name="value"/> componentwise to the nearest integral multiple of <paramref name="snapSize"/>
+    /// </summary>
+    /// <param name="value">The value to snap</param>
+    /// <param name="snapSize">the step size of the snapping grid</param>
+    /// <returns>the snapped value</returns>
+    public static Vector2 Snap(this Vector2 value, Vector2 snapSize)
+    {
+        return new Vector2(value.x.Snap(snapSize.x), value.y.Snap(snapSize.y));
+    }
+
+    /// <summary>
+    /// Snaps <paramref name="value"/> componentwise to the nearest integral multiple of <paramref name="snapSize"/>
+    /// </summary>
+    /// <param name="value">The value to snap</param>
+    /// <param name="snapSize">the step size of the snapping grid</param>
+    /// <returns>the snapped value</returns>
+    public static Vector3 Snap(this Vector3 value, Vector3 snapSize)
+    {
+        return new Vector3(value.x.Snap(snapSize.x), value.y.Snap(snapSize.y), value.z.Snap(snapSize.z));
+    }
 }
