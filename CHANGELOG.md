@@ -1,5 +1,9 @@
 # CHANGELOG
 
+### 1.1.5
+12-07-2024
+- Added IsBetween
+
 ### 1.1.4
 25-5-2024
 - Added non-componentwise Snap Method for Vector2 and Vector3

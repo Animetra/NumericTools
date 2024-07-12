@@ -365,6 +365,54 @@ public static class NumericHandling
         return Mathf.FloorToInt(angle / divisionSize);
     }
 
+    /// <summary>
+    /// Determines, if a value is between two border values, inclusive
+    /// </summary>
+    /// <param name="value">the value to be checked</param>
+    /// <param name="min">the lower border value</param>
+    /// <param name="max"><the higher border value/param>
+    /// <returns>ture, if the value is between the border values, inclusive</returns>
+    public static bool IsBetweenInclusive(this int value, int min, int max)
+    {
+        return value >= min && value <= max;
+    }
+
+    /// <summary>
+    /// Determines, if a value is between two border values, exclusive
+    /// </summary>
+    /// <param name="value">the value to be checked</param>
+    /// <param name="min">the lower border value</param>
+    /// <param name="max"><the higher border value/param>
+    /// <returns>ture, if the value is between the border values, inclusive</returns>
+    public static bool IsBetweenExclusive(this int value, int min, int max)
+    {
+        return value > min && value < max;
+    }
+
+    /// <summary>
+    /// Determines, if a value is between two border values, inclusive
+    /// </summary>
+    /// <param name="value">the value to be checked</param>
+    /// <param name="min">the lower border value</param>
+    /// <param name="max"><the higher border value/param>
+    /// <returns>ture, if the value is between the border values, inclusive</returns>
+    public static bool IsBetweenInclusive(this float value, float min, float max)
+    {
+        return value >= min && value <= max;
+    }
+
+    /// <summary>
+    /// Determines, if a value is between two border values, exclusive
+    /// </summary>
+    /// <param name="value">the value to be checked</param>
+    /// <param name="min">the lower border value</param>
+    /// <param name="max"><the higher border value/param>
+    /// <returns>ture, if the value is between the border values, inclusive</returns>
+    public static bool IsBetweenExclusive(this float value, float min, float max)
+    {
+        return value > min && value < max;
+    }
+
     // TODO
     public static Vector3 GetQuadrant(this Vector3 source)
     {
